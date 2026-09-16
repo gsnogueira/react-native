@@ -1,0 +1,58 @@
+{
+  "name": "my-react-native-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
+    "axios": "^1.20.0",
+    "firebase": "9.23.0",
+    "react": "17.0.2",
+    "react-native": "0.66.4",
+    "react-native-document-picker": "^8.2.2",
+    "react-native-gesture-handler": "^2.1.1",
+    "react-native-reanimated": "^2.3.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.1",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/runtime": "^7.15.0",
+    "@types/node": "^18.19.31",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.32.0",
+    "jest": "^27.0.6",
+    "typescript": "^5.4.5"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
+  }
+}

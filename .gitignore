@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Metro and temporary logs
+.metro-health-check*
+metro*.log
+*.log
+
+# React Native and Android build output
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.cxx/
+android/app/.cxx/
+android/app/debug.keystore
+
+# Generated native files
+*.iml
+.gradle/
+.idea/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Local Firebase credentials/configuration
+android/app/google-services.json
+
+# Test and coverage output
+coverage/
+*.lcov
