@@ -1,4 +1,4 @@
-import { buildTransactionFromInput, createAuthUser } from './finance';
+import { buildTransactionFromInput, createAuthUser, summarizeTransactions } from './finance';
 
 describe('finance domain logic', () => {
   it('creates an auth user using email local-part as fallback name', () => {
@@ -31,6 +31,20 @@ describe('finance domain logic', () => {
       notes: 'útil',
       receiptUrl: 'uri-1',
       createdAt: expect.any(Number),
+    });
+  });
+
+  it('calculates income, expenses, balance, and count in one summary', () => {
+    const transactions = [
+      { id: 'income', userId: 'user-1', title: 'Salário', amount: 1500, type: 'income' as const, category: 'Salário', date: '2026-11-15', createdAt: 1 },
+      { id: 'expense', userId: 'user-1', title: 'Aluguel', amount: 700, type: 'expense' as const, category: 'Casa', date: '2026-11-15', createdAt: 2 },
+    ];
+
+    expect(summarizeTransactions(transactions)).toEqual({
+      income: 1500,
+      expenses: 700,
+      balance: 800,
+      transactionCount: 2,
     });
   });
 });

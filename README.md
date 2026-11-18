@@ -102,14 +102,24 @@ npx react-native bundle --platform android --dev true --entry-file index.js --bu
 ```text
 src/app/
   App.tsx                              Entrada da aplicacao
-  FinanceContext.tsx                   Firebase Auth e estado das transacoes
+  FinanceContext.tsx                   Coordenacao e estado da aplicacao
+  financeReducer.ts                    Transicoes tipadas de estado
   navigation/AppNavigator.tsx          Rotas autenticadas e publicas
   screens/AuthScreen.tsx               Login e cadastro
   screens/DashboardScreen.tsx          Resumo financeiro
   screens/TransactionsScreen.tsx       Lista, busca e filtros
   screens/TransactionFormScreen.tsx    Criacao e edicao
+src/domain/
+  finance.ts                           Regras e calculos do dominio
+  repositories.ts                      Contratos das camadas de dados
+src/data/
+  firebaseAuthRepository.ts            Adaptador Firebase Authentication
+  financeRepository.ts                 Persistencia criptografada e cache local
 android/                               Projeto nativo Android
 ```
+
+Veja [MELHORIAS_ARQUITETURA_E_PERFORMANCE.md](./MELHORIAS_ARQUITETURA_E_PERFORMANCE.md)
+para o detalhamento das mudancas, validacoes e limites conhecidos.
 
 ## Solucao de problemas
 

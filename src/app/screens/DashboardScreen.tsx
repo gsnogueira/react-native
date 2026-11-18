@@ -1,15 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated, Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFinance } from '../FinanceContext';
+import { summarizeTransactions } from '../../domain/finance';
 
 const money = (value: number) => `R$ ${value.toFixed(2).replace('.', ',')}`;
 const DashboardScreen = ({ navigation }: any) => {
   const { user, transactions } = useFinance();
   const slide = useRef(new Animated.Value(0)).current;
   useEffect(() => { Animated.spring(slide, { toValue: 1, useNativeDriver: true }).start(); }, []);
-  const income = transactions.filter(item => item.type === 'income').reduce((sum, item) => sum + item.amount, 0);
-  const expenses = transactions.filter(item => item.type === 'expense').reduce((sum, item) => sum + item.amount, 0);
-  const balance = income - expenses;
+  const { income, expenses, balance } = useMemo(
+    () => summarizeTransactions(transactions),
+    [transactions],
+  );
   const max = Math.max(income, expenses, 1);
   return <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
     <Animated.View style={{ opacity: slide, transform: [{ translateY: slide.interpolate({ inputRange: [0, 1], outputRange: [24, 0] }) }] }}>
