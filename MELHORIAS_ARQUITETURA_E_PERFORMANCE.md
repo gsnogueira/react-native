@@ -59,6 +59,9 @@ segmentado e medição de release; esta alteração não afirma esse ganho.
 - A autenticação do Firebase e as transações locais passam a usar
   `react-native-encrypted-storage`, que delega a proteção ao Keychain no iOS e ao
   armazenamento protegido do Android.
+- A configuração Firebase deixou de ter valores embutidos no código. As variáveis
+  permitidas são injetadas no bundle pelo Babel; sem a configuração mínima, o app
+  informa que o login está desabilitado em vez de falhar na inicialização.
 - As transações são isoladas por identificador de usuário. A leitura e a gravação
   rejeitam dados que pertençam a outra conta.
 - A chave legada compartilhada do AsyncStorage é migrada por usuário para o
@@ -69,10 +72,10 @@ segmentado e medição de release; esta alteração não afirma esse ganho.
 
 **Limites de segurança:** a proteção em repouso não é criptografia ponta a ponta e
 não substitui controles de acesso no servidor. As credenciais de configuração Web
-do Firebase são identificadores de cliente, não segredos; as regras do Firebase e
-as políticas de autenticação precisam continuar restritas. Recibos permanecem como
-URIs locais armazenadas no registro; seu arquivo não é enviado nem criptografado
-por esta implementação.
+do Firebase são dados de cliente incluídos no bundle, não segredos; as regras do
+Firebase e as políticas de autenticação precisam continuar restritas. Recibos
+permanecem como URIs locais armazenadas no registro; seu arquivo não é enviado nem
+criptografado por esta implementação.
 
 ## Cache de rede e sincronização
 
@@ -99,9 +102,11 @@ instaladas.
 
 1. Configurar e validar o autolinking do armazenamento criptografado em builds
    Android e iOS; em iOS, instalar os Pods no ambiente macOS.
-2. Executar teste de migração em dispositivo com dados reais de versões anteriores
+2. Fornecer a configuração Firebase pelo ambiente de build, já que os valores não
+   ficam mais no código versionado.
+3. Executar teste de migração em dispositivo com dados reais de versões anteriores
    e política de recuperação para armazenamento protegido indisponível.
-3. Medir tempo de inicialização e tamanho do bundle de release antes/depois; avaliar
+4. Medir tempo de inicialização e tamanho do bundle de release antes/depois; avaliar
    bundle segmentado se o tamanho inicial for um gargalo.
-4. Se transações forem sincronizadas no futuro, criar API com autorização por
+5. Se transações forem sincronizadas no futuro, criar API com autorização por
    usuário, cache com invalidação, sincronização offline e tratamento de conflitos.

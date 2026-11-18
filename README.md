@@ -70,7 +70,24 @@ adb devices
 4. Ative **E-mail/senha**.
 5. Confira os usuarios em **Authentication > Usuarios** depois do cadastro.
 
-A configuracao Web usada pelo app fica em `src/app/FinanceContext.tsx`. Se trocar de projeto, atualize o objeto `firebaseConfig` nesse arquivo.
+Configure os dados do app Firebase no mesmo terminal PowerShell antes de iniciar o
+Metro. Os valores sao injetados no bundle durante a compilacao; nao grave credenciais
+privadas no codigo nem no repositorio.
+
+```powershell
+$env:FIREBASE_API_KEY="..."
+$env:FIREBASE_AUTH_DOMAIN="seu-projeto.firebaseapp.com"
+$env:FIREBASE_PROJECT_ID="seu-projeto"
+$env:FIREBASE_APP_ID="1:...:web:..."
+$env:FIREBASE_DATABASE_URL="https://seu-projeto-default-rtdb.firebaseio.com"
+$env:FIREBASE_STORAGE_BUCKET="seu-projeto.firebasestorage.app"
+$env:FIREBASE_MESSAGING_SENDER_ID="..."
+$env:FIREBASE_MEASUREMENT_ID="..."
+```
+
+`FIREBASE_API_KEY`, `FIREBASE_PROJECT_ID` e `FIREBASE_APP_ID` sao necessarios para
+habilitar a autenticacao. Sem eles, o app inicia sem autenticar e informa como
+configurar o ambiente.
 
 O identificador Android do app e:
 
@@ -78,7 +95,9 @@ O identificador Android do app e:
 com.myreactnativeappnative
 ```
 
-> As credenciais de configuracao Web do Firebase nao sao chaves secretas. Nunca adicione chaves privadas, service accounts ou arquivos de credenciais administrativas ao repositorio.
+> A configuracao cliente do Firebase e distribuida no bundle e nao substitui regras
+> de seguranca no Firebase. Nunca adicione chaves privadas, service accounts ou
+> arquivos de credenciais administrativas ao repositorio.
 
 ## Validar antes de testar
 
