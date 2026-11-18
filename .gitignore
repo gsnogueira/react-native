@@ -27,6 +27,9 @@ Thumbs.db
 
 # Local Firebase credentials/configuration
 android/app/google-services.json
+.env
+.env.*
+!.env.example
 
 # Test and coverage output
 coverage/

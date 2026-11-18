@@ -49,9 +49,9 @@ const AuthScreen = () => {
           {mode === 'signup' && <TextInput style={styles.input} placeholder="Seu nome" placeholderTextColor="#87918d" value={name} onChangeText={setName} />}
           <TextInput style={styles.input} placeholder="E-mail" placeholderTextColor="#87918d" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={setEmail} />
           <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#87918d" secureTextEntry value={password} onChangeText={setPassword} />
-          <TouchableOpacity style={styles.primary} onPress={submit} disabled={busy}><Text style={styles.primaryText}>{busy ? 'Aguarde...' : mode === 'login' ? 'Entrar' : 'Criar conta'}</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => setMode(mode === 'login' ? 'signup' : 'login')}><Text style={styles.switch}>{mode === 'login' ? 'Ainda não tenho conta' : 'Já tenho uma conta'}</Text></TouchableOpacity>
-          {!isFirebaseEnabled && <Text style={styles.localNote}></Text>}
+          <TouchableOpacity style={styles.primary} onPress={submit} disabled={busy || !isFirebaseEnabled}><Text style={styles.primaryText}>{busy ? 'Aguarde...' : mode === 'login' ? 'Entrar' : 'Criar conta'}</Text></TouchableOpacity>
+          <TouchableOpacity disabled={!isFirebaseEnabled} onPress={() => setMode(mode === 'login' ? 'signup' : 'login')}><Text style={styles.switch}>{mode === 'login' ? 'Ainda não tenho conta' : 'Já tenho uma conta'}</Text></TouchableOpacity>
+          {!isFirebaseEnabled && <Text style={styles.localNote}>Autenticação indisponível. Configure as variáveis FIREBASE_API_KEY, FIREBASE_PROJECT_ID e FIREBASE_APP_ID antes de iniciar o Metro.</Text>}
         </View>
         {busy && <ActivityIndicator color="#e36b3d" />}
       </KeyboardAvoidingView>
